@@ -1,7 +1,7 @@
 # decaf-compiler
 
 ## Description
-This is a compiler project for the Decaf programming language. Decaf is a Java-like object-oriented programming language. The compiler uses Flex and Binson to do lexical and syntax analysis. After building an abstract syntax tree (AST), the compiler performs multiple passes of semantic analysis to support features of the Decaf language. Once all error checking is done, the compiler generates three-address code (TAC) as intermediate representation (IR), and emits MIPS assembly code. The MIPS assembly code can be executed with the SPIM simulator.
+This is a compiler project for the Decaf programming language. Decaf is a Java-like object-oriented programming language. The compiler uses Flex and Bison to do lexical and syntax analysis. After building an abstract syntax tree (AST), the compiler performs multiple passes of semantic analysis to support features of the Decaf language. Once all error checking is done, the compiler generates three-address code (TAC) as intermediate representation (IR), and emits MIPS assembly code. The MIPS assembly code can be executed with the SPIM simulator.
 
 ## Festures of the Decaf compiler
 * Perform lexical and syntax analysis and build AST

@@ -60,9 +60,12 @@ target_include_directories(dcc PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR}   # for y.tab.h, lex.yy.c
 )
 
-# Match Makefile warning flags
+# Match Makefile warning flags and handle platform-specific issues
 if(MSVC)
     target_compile_options(dcc PRIVATE /W1)
+    # Tell flex-generated code not to include unistd.h (not available on Windows)
+    # Suppress warnings about deprecated POSIX functions (vsprintf, etc.)
+    target_compile_definitions(dcc PRIVATE YY_NO_UNISTD_H _CRT_SECURE_NO_WARNINGS)
 else()
     target_compile_options(dcc PRIVATE -Wall -Wno-unused -Wno-sign-compare)
 endif()
