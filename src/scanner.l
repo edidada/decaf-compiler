@@ -15,6 +15,12 @@
 #include "parser.h" // for token codes, yylval
 #include "list.h"
 
+// Windows/MSVC compatibility: isatty -> _isatty
+#ifdef _WIN32
+#include <io.h>
+#define isatty _isatty
+#endif
+
 #define TAB_SIZE 8
 
 /* Global variables
