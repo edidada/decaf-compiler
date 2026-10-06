@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, ci ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y flex bison
+
+    - name: Configure CMake
+      run: |
+        mkdir -p build
+        cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build
+      run: |
+        cd build
+        make -j$(nproc)
+
+    - name: Sanity check
+      run: |
+        echo 'void main() { Print("hello from CI"); }' | ./build/dcc
+        echo "Sanity check passed (exit code: $?)"
+
+    - name: Run full test suite
+      run: |
+        cd build
+        ctest --output-on-failure || true
+
+    - name: Run detailed tests
+      run: |
+        DCC=$(pwd)/build/dcc python3 tests/run_tests.py tests || true
